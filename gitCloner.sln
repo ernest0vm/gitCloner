@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitCloner", "gitCloner\gitCloner.csproj", "{7DBDC124-2D0F-4185-8678-13403452FB78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DBDC124-2D0F-4185-8678-13403452FB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DBDC124-2D0F-4185-8678-13403452FB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DBDC124-2D0F-4185-8678-13403452FB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DBDC124-2D0F-4185-8678-13403452FB78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {04A620B3-8D4C-44A7-9E1D-16A8E5D54441}
+	EndGlobalSection
+EndGlobal
