@@ -257,7 +257,7 @@ namespace gitCloner
 
                     if (Directory.Exists(clonePath))
                     {
-                        //MessageBox.Show(repositoryName + " already cloned.", "Cannot clone repository", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        lblStatus.Text = repositoryName + " already cloned.";
                         //Directory.Delete(clonePath,true);
                     }
 
@@ -272,15 +272,20 @@ namespace gitCloner
 
                     startInfo.Arguments = command;
                     process.StartInfo = startInfo;
+
                     process.Start();
 
+                    while (!process.HasExited)
+                    {
+                        //wait infinite time for the end of process.
+                    }
+
                     lblStatus.Text = repositoryName + " has been cloned.";
-                                       
-                    string itemsProgress = $"Cloned: {item++} / Remain: {SourceList.Items.Count - item} / Total: {SourceList.Items.Count}";
+
+                    string itemsProgress = $"Cloned: {item++} / Remain: {(SourceList.Items.Count + 1) - item} / Total: {SourceList.Items.Count}";
                     lblItems.Text = itemsProgress;
 
                     progressBar1.Value = (100 / SourceList.Items.Count) * item;
-
 
                 }
 
