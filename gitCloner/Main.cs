@@ -13,7 +13,7 @@ namespace gitCloner
 {
     public partial class MainForm : Form
     {
-
+        private string itemsProgress = string.Empty;
         private string filePath = string.Empty;
         private string savePathFolder = string.Empty;
 
@@ -32,9 +32,11 @@ namespace gitCloner
             btnDelete.Enabled = hasListLoaded;
             btnSave.Enabled = hasListLoaded;
             btnClone.Enabled = hasListLoaded;
+            btnMultiClone.Enabled = hasListLoaded;
             chkCompress.Enabled = hasListLoaded;
             chkDelete.Enabled = hasListLoaded;
             txtPath.Enabled = hasListLoaded;
+            txtSavePath.Enabled = hasListLoaded;
             SourceList.Enabled = hasListLoaded;
         }
 
@@ -69,6 +71,9 @@ namespace gitCloner
                             SourceList.Items.Add(line);
                         }
                     }
+
+                    lblItems.Text = $"Total: {SourceList.Items.Count}";
+
                 }
             }
         }
@@ -81,6 +86,9 @@ namespace gitCloner
             lblStatus.Text = "New source list was created";
             txtPath.Text = string.Empty;
             filePath = string.Empty;
+
+            BtnAdd_Click(null, null);
+            lblItems.Text = $"Total: {SourceList.Items.Count}";
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
@@ -94,6 +102,7 @@ namespace gitCloner
                     SourceList.Items.Add(inputBox.data);
             }
 
+            lblItems.Text = $"Total: {SourceList.Items.Count}";
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -104,6 +113,8 @@ namespace gitCloner
                 {
                     SourceList.Items.RemoveAt(SourceList.SelectedIndex);
                 }
+
+                lblItems.Text = $"Total: {SourceList.Items.Count}";
             }
             catch
             {
@@ -234,7 +245,7 @@ namespace gitCloner
             }
         }
 
-        private void BtnMultiCLone_Click(object sender, EventArgs e)
+        private void BtnMultiClone_Click(object sender, EventArgs e)
         {
             try
             {
@@ -282,13 +293,17 @@ namespace gitCloner
 
                     lblStatus.Text = repositoryName + " has been cloned.";
 
-                    string itemsProgress = $"Cloned: {item++} / Remain: {(SourceList.Items.Count + 1) - item} / Total: {SourceList.Items.Count}";
+                    itemsProgress = $"Cloned: {item++} / Remain: {(SourceList.Items.Count + 1) - item} / Total: {SourceList.Items.Count}";
                     lblItems.Text = itemsProgress;
 
                     progressBar1.Value = (100 / SourceList.Items.Count) * item;
 
                 }
 
+                lblStatus.Text = "All repositories has been cloned.";
+                itemsProgress = $"Cloned: {item - 1} / Total: {SourceList.Items.Count}";
+                lblItems.Text = itemsProgress;
+                progressBar1.Value = 0;
                 SourceList.Enabled = true;
             }
             catch

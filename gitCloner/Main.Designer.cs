@@ -45,7 +45,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtSavePath = new System.Windows.Forms.TextBox();
             this.btnSavePath = new System.Windows.Forms.Button();
-            this.btnMultiCLone = new System.Windows.Forms.Button();
+            this.btnMultiClone = new System.Windows.Forms.Button();
             this.lblItems = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -207,15 +207,15 @@
             this.btnSavePath.UseVisualStyleBackColor = true;
             this.btnSavePath.Click += new System.EventHandler(this.BtnSavePath_Click);
             // 
-            // btnMultiCLone
+            // btnMultiClone
             // 
-            this.btnMultiCLone.Location = new System.Drawing.Point(463, 363);
-            this.btnMultiCLone.Name = "btnMultiCLone";
-            this.btnMultiCLone.Size = new System.Drawing.Size(165, 48);
-            this.btnMultiCLone.TabIndex = 23;
-            this.btnMultiCLone.Text = "Multi Clone";
-            this.btnMultiCLone.UseVisualStyleBackColor = true;
-            this.btnMultiCLone.Click += new System.EventHandler(this.BtnMultiCLone_Click);
+            this.btnMultiClone.Location = new System.Drawing.Point(463, 363);
+            this.btnMultiClone.Name = "btnMultiClone";
+            this.btnMultiClone.Size = new System.Drawing.Size(165, 48);
+            this.btnMultiClone.TabIndex = 23;
+            this.btnMultiClone.Text = "Multi Clone";
+            this.btnMultiClone.UseVisualStyleBackColor = true;
+            this.btnMultiClone.Click += new System.EventHandler(this.BtnMultiClone_Click);
             // 
             // lblItems
             // 
@@ -233,7 +233,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(640, 480);
             this.Controls.Add(this.lblItems);
-            this.Controls.Add(this.btnMultiCLone);
+            this.Controls.Add(this.btnMultiClone);
             this.Controls.Add(this.btnSavePath);
             this.Controls.Add(this.txtSavePath);
             this.Controls.Add(this.label2);
@@ -278,7 +278,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSavePath;
         private System.Windows.Forms.Button btnSavePath;
-        private System.Windows.Forms.Button btnMultiCLone;
+        private System.Windows.Forms.Button btnMultiClone;
         private System.Windows.Forms.Label lblItems;
     }
 }
