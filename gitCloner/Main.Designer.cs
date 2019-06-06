@@ -45,12 +45,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtSavePath = new System.Windows.Forms.TextBox();
             this.btnSavePath = new System.Windows.Forms.Button();
+            this.btnMultiCLone = new System.Windows.Forms.Button();
+            this.lblItems = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // chkCompress
             // 
             this.chkCompress.AutoSize = true;
-            this.chkCompress.Location = new System.Drawing.Point(357, 440);
+            this.chkCompress.Location = new System.Drawing.Point(474, 253);
             this.chkCompress.Name = "chkCompress";
             this.chkCompress.Size = new System.Drawing.Size(138, 17);
             this.chkCompress.TabIndex = 6;
@@ -60,7 +62,7 @@
             // chkDelete
             // 
             this.chkDelete.AutoSize = true;
-            this.chkDelete.Location = new System.Drawing.Point(501, 440);
+            this.chkDelete.Location = new System.Drawing.Point(474, 276);
             this.chkDelete.Name = "chkDelete";
             this.chkDelete.Size = new System.Drawing.Size(129, 17);
             this.chkDelete.TabIndex = 7;
@@ -117,11 +119,11 @@
             // 
             // btnClone
             // 
-            this.btnClone.Location = new System.Drawing.Point(463, 363);
+            this.btnClone.Location = new System.Drawing.Point(463, 309);
             this.btnClone.Name = "btnClone";
             this.btnClone.Size = new System.Drawing.Size(165, 48);
             this.btnClone.TabIndex = 13;
-            this.btnClone.Text = "Start Clone";
+            this.btnClone.Text = "Single Clone";
             this.btnClone.UseVisualStyleBackColor = true;
             this.btnClone.Click += new System.EventHandler(this.BtnClone_Click);
             // 
@@ -137,12 +139,12 @@
             // 
             // lblStatus
             // 
-            this.lblStatus.Location = new System.Drawing.Point(465, 301);
+            this.lblStatus.Location = new System.Drawing.Point(251, 421);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(165, 23);
+            this.lblStatus.Size = new System.Drawing.Size(377, 22);
             this.lblStatus.TabIndex = 15;
             this.lblStatus.Text = "Status";
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnAbout
             // 
@@ -205,12 +207,33 @@
             this.btnSavePath.UseVisualStyleBackColor = true;
             this.btnSavePath.Click += new System.EventHandler(this.BtnSavePath_Click);
             // 
+            // btnMultiCLone
+            // 
+            this.btnMultiCLone.Location = new System.Drawing.Point(463, 363);
+            this.btnMultiCLone.Name = "btnMultiCLone";
+            this.btnMultiCLone.Size = new System.Drawing.Size(165, 48);
+            this.btnMultiCLone.TabIndex = 23;
+            this.btnMultiCLone.Text = "Multi Clone";
+            this.btnMultiCLone.UseVisualStyleBackColor = true;
+            this.btnMultiCLone.Click += new System.EventHandler(this.BtnMultiCLone_Click);
+            // 
+            // lblItems
+            // 
+            this.lblItems.Location = new System.Drawing.Point(251, 444);
+            this.lblItems.Name = "lblItems";
+            this.lblItems.Size = new System.Drawing.Size(377, 22);
+            this.lblItems.TabIndex = 24;
+            this.lblItems.Text = "Items";
+            this.lblItems.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(640, 480);
+            this.Controls.Add(this.lblItems);
+            this.Controls.Add(this.btnMultiCLone);
             this.Controls.Add(this.btnSavePath);
             this.Controls.Add(this.txtSavePath);
             this.Controls.Add(this.label2);
@@ -255,6 +278,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSavePath;
         private System.Windows.Forms.Button btnSavePath;
+        private System.Windows.Forms.Button btnMultiCLone;
+        private System.Windows.Forms.Label lblItems;
     }
 }
 

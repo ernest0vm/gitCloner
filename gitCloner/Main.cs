@@ -21,8 +21,8 @@ namespace gitCloner
         {
             InitializeComponent();
             EnableControls(false);
-            lblStatus.Text = "No source loaded";
-
+            lblStatus.Text = "Without source list";
+            lblItems.Text = string.Empty;
             Text = "gitCloner v" + Application.ProductVersion;
         }
 
@@ -164,6 +164,13 @@ namespace gitCloner
         {
             try
             {
+                progressBar1.Value = 0;
+
+                if (string.IsNullOrEmpty(savePathFolder))
+                {
+                    MessageBox.Show("please select a path for save the repositories", "Without path for save", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
 
                 string[] tempString = SourceList.SelectedItem.ToString().Split(Convert.ToChar("/"));
                 string repositoryName = tempString.LastOrDefault().Replace(".git", "");
@@ -181,7 +188,7 @@ namespace gitCloner
 #if DEBUG
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
 #else
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 #endif
                 startInfo.FileName = "cmd.exe";
 
@@ -190,6 +197,7 @@ namespace gitCloner
                 process.Start();
 
                 lblStatus.Text = repositoryName + " has been cloned.";
+                progressBar1.Value = 100;
             }
             catch
             {
@@ -223,6 +231,64 @@ namespace gitCloner
                     savePathFolder = folderBrowser.SelectedPath + "\\";
                     txtSavePath.Text = savePathFolder;
                 }
+            }
+        }
+
+        private void BtnMultiCLone_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                progressBar1.Value = 0;
+                SourceList.Enabled = false;
+                if (string.IsNullOrEmpty(savePathFolder))
+                {
+                    MessageBox.Show("please select a path for save the repositories", "Without path for save", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                int item = 1;
+                for (int a = 0; a <= SourceList.Items.Count - 1; a++)
+                {
+                    SourceList.SelectedIndex = a;
+                    string[] tempString = SourceList.SelectedItem.ToString().Split(Convert.ToChar("/"));
+                    string repositoryName = tempString.LastOrDefault().Replace(".git", "");
+                    string clonePath = savePathFolder + repositoryName;
+                    string command = "/C git clone " + SourceList.SelectedItem.ToString() + " " + clonePath;
+
+                    if (Directory.Exists(clonePath))
+                    {
+                        //MessageBox.Show(repositoryName + " already cloned.", "Cannot clone repository", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //Directory.Delete(clonePath,true);
+                    }
+
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+#if DEBUG
+                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+#else
+                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+#endif
+                    startInfo.FileName = "cmd.exe";
+
+                    startInfo.Arguments = command;
+                    process.StartInfo = startInfo;
+                    process.Start();
+
+                    lblStatus.Text = repositoryName + " has been cloned.";
+                                       
+                    string itemsProgress = $"Cloned: {item++} / Remain: {SourceList.Items.Count - item} / Total: {SourceList.Items.Count}";
+                    lblItems.Text = itemsProgress;
+
+                    progressBar1.Value = (100 / SourceList.Items.Count) * item;
+
+
+                }
+
+                SourceList.Enabled = true;
+            }
+            catch
+            {
+                MessageBox.Show("please select an item on the list", "Item no selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }
