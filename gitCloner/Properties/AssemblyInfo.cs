@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("gitCloner")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Hello, thanks for use gitCloner. \n\nThis application was developed for help you to clone multiple git repositories.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Developed by Ernesto Valdez")]
 [assembly: AssemblyProduct("gitCloner")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]

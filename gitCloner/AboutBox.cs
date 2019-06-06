@@ -100,6 +100,24 @@ namespace gitCloner
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
+
         #endregion
+
+        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.linkLabel1.LinkVisited = true;
+
+            System.Diagnostics.Process.Start("https://github.com/ernest0vm/gitCloner");
+        }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.linkedin.com/in/ernestovaldez/");
+        }
+
+        private void PictureBox2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("mailto:ernestovm07@gmail.com?subject=Contact%20about%20gitCloner");
+        }
     }
 }

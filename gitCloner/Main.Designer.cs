@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SourceListView = new System.Windows.Forms.DataGridView();
             this.chkCompress = new System.Windows.Forms.CheckBox();
             this.chkDelete = new System.Windows.Forms.CheckBox();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -41,29 +40,12 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnAbout = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.URL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.SourceListView)).BeginInit();
+            this.SourceList = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtSavePath = new System.Windows.Forms.TextBox();
+            this.btnSavePath = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // SourceListView
-            // 
-            this.SourceListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.SourceListView.BackgroundColor = System.Drawing.Color.White;
-            this.SourceListView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.SourceListView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.SourceListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SourceListView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.URL});
-            this.SourceListView.Enabled = false;
-            this.SourceListView.Location = new System.Drawing.Point(8, 8);
-            this.SourceListView.MultiSelect = false;
-            this.SourceListView.Name = "SourceListView";
-            this.SourceListView.ReadOnly = true;
-            this.SourceListView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.SourceListView.RowHeadersVisible = false;
-            this.SourceListView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SourceListView.Size = new System.Drawing.Size(449, 389);
-            this.SourceListView.TabIndex = 4;
             // 
             // chkCompress
             // 
@@ -128,14 +110,14 @@
             // txtPath
             // 
             this.txtPath.Enabled = false;
-            this.txtPath.Location = new System.Drawing.Point(8, 403);
+            this.txtPath.Location = new System.Drawing.Point(8, 346);
             this.txtPath.Name = "txtPath";
             this.txtPath.Size = new System.Drawing.Size(449, 20);
             this.txtPath.TabIndex = 12;
             // 
             // btnClone
             // 
-            this.btnClone.Location = new System.Drawing.Point(463, 375);
+            this.btnClone.Location = new System.Drawing.Point(463, 363);
             this.btnClone.Name = "btnClone";
             this.btnClone.Size = new System.Drawing.Size(165, 48);
             this.btnClone.TabIndex = 13;
@@ -155,11 +137,11 @@
             // 
             // lblStatus
             // 
-            this.lblStatus.Location = new System.Drawing.Point(170, 436);
+            this.lblStatus.Location = new System.Drawing.Point(465, 301);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(169, 23);
+            this.lblStatus.Size = new System.Drawing.Size(165, 23);
             this.lblStatus.TabIndex = 15;
-            this.lblStatus.Text = "label1";
+            this.lblStatus.Text = "Status";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAbout
@@ -180,11 +162,48 @@
             this.progressBar1.Size = new System.Drawing.Size(640, 10);
             this.progressBar1.TabIndex = 17;
             // 
-            // URL
+            // SourceList
             // 
-            this.URL.HeaderText = "URL";
-            this.URL.Name = "URL";
-            this.URL.ReadOnly = true;
+            this.SourceList.FormattingEnabled = true;
+            this.SourceList.Location = new System.Drawing.Point(8, 8);
+            this.SourceList.Name = "SourceList";
+            this.SourceList.Size = new System.Drawing.Size(449, 316);
+            this.SourceList.TabIndex = 18;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 330);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Source list path:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(5, 375);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(126, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Path to save repositories:";
+            // 
+            // txtSavePath
+            // 
+            this.txtSavePath.Location = new System.Drawing.Point(8, 391);
+            this.txtSavePath.Name = "txtSavePath";
+            this.txtSavePath.Size = new System.Drawing.Size(449, 20);
+            this.txtSavePath.TabIndex = 21;
+            // 
+            // btnSavePath
+            // 
+            this.btnSavePath.Location = new System.Drawing.Point(170, 429);
+            this.btnSavePath.Name = "btnSavePath";
+            this.btnSavePath.Size = new System.Drawing.Size(75, 36);
+            this.btnSavePath.TabIndex = 22;
+            this.btnSavePath.Text = "Select Save Folder";
+            this.btnSavePath.UseVisualStyleBackColor = true;
+            this.btnSavePath.Click += new System.EventHandler(this.BtnSavePath_Click);
             // 
             // MainForm
             // 
@@ -192,6 +211,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(640, 480);
+            this.Controls.Add(this.btnSavePath);
+            this.Controls.Add(this.txtSavePath);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.SourceList);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.lblStatus);
@@ -204,19 +228,16 @@
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.chkDelete);
             this.Controls.Add(this.chkCompress);
-            this.Controls.Add(this.SourceListView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "gitCloner";
-            ((System.ComponentModel.ISupportInitialize)(this.SourceListView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView SourceListView;
         private System.Windows.Forms.CheckBox chkCompress;
         private System.Windows.Forms.CheckBox chkDelete;
         private System.Windows.Forms.Button btnOpen;
@@ -229,7 +250,11 @@
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn URL;
+        private System.Windows.Forms.ListBox SourceList;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtSavePath;
+        private System.Windows.Forms.Button btnSavePath;
     }
 }
 
