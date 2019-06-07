@@ -165,7 +165,8 @@
             this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxDescription.Location = new System.Drawing.Point(13, 151);
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.textBoxDescription.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.textBoxDescription.Size = new System.Drawing.Size(309, 66);
             this.textBoxDescription.TabIndex = 37;
             this.textBoxDescription.Text = "";

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace gitCloner
@@ -194,12 +195,12 @@ namespace gitCloner
                     //Directory.Delete(clonePath,true);
                 }
 
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                Process process = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo();
 #if DEBUG
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                startInfo.WindowStyle = ProcessWindowStyle.Normal;
 #else
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 #endif
                 startInfo.FileName = "cmd.exe";
 
@@ -207,8 +208,30 @@ namespace gitCloner
                 process.StartInfo = startInfo;
                 process.Start();
 
+                while (!process.HasExited)
+                {
+                    //wait infinite time for the end of process.
+                }
+
                 lblStatus.Text = repositoryName + " has been cloned.";
                 progressBar1.Value = 100;
+
+                if (chkCompress.Checked)
+                {
+                    if (chkDelete.Checked)
+                    {
+                        CompressFiles(true);
+                    }
+                    else
+                    {
+                        CompressFiles();
+                    }
+                }
+
+                Text = "gitCloner v" + Application.ProductVersion;
+                lblStatus.Text = repositoryName + " has been compressed.";
+                SourceList.Enabled = true;
+                progressBar1.Value = 0;
             }
             catch
             {
@@ -222,15 +245,35 @@ namespace gitCloner
             showAbout.ShowDialog();
         }
 
-#pragma warning disable IDE0051
-        private bool CompressFiles()
+        private void CompressFiles(bool delete = false)
         {
-            return true;
-        }
 
-        private bool DeleteTempFolder()
-        {
-            return true;
+            string compressCommand = $"/C 7z.exe a {savePathFolder}gitBackup[{DateTime.UtcNow.ToString("dd-MM-yyyy")}].zip {savePathFolder} {(delete ? "-sdel" : "")}";
+
+            Text = $"gitCloner v{Application.ProductVersion} [Compressing files]";
+
+            Process process = new Process();
+            ProcessStartInfo startCompressInfo = new ProcessStartInfo
+            {
+#if DEBUG
+                WindowStyle = ProcessWindowStyle.Normal,
+#else
+                WindowStyle = ProcessWindowStyle.Hidden,
+#endif
+                FileName = "cmd.exe",
+
+                Arguments = compressCommand
+            };
+
+            process.StartInfo = startCompressInfo;
+
+            process.Start();
+
+            while (!process.HasExited)
+            {
+                //wait infinite time for the end of process.
+            }
+
         }
 
         private void BtnSavePath_Click(object sender, EventArgs e)
@@ -266,18 +309,20 @@ namespace gitCloner
                     string clonePath = savePathFolder + repositoryName;
                     string command = "/C git clone " + SourceList.SelectedItem.ToString() + " " + clonePath;
 
+                    Text = $"gitCloner v{Application.ProductVersion} [Cloning {repositoryName}]";
+
                     if (Directory.Exists(clonePath))
                     {
                         lblStatus.Text = repositoryName + " already cloned.";
                         //Directory.Delete(clonePath,true);
                     }
 
-                    System.Diagnostics.Process process = new System.Diagnostics.Process();
-                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                    Process process = new Process();
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
 #if DEBUG
-                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                    startInfo.WindowStyle = ProcessWindowStyle.Minimized;
 #else
-                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 #endif
                     startInfo.FileName = "cmd.exe";
 
@@ -296,15 +341,33 @@ namespace gitCloner
                     itemsProgress = $"Cloned: {item++} / Remain: {(SourceList.Items.Count + 1) - item} / Total: {SourceList.Items.Count}";
                     lblItems.Text = itemsProgress;
 
-                    progressBar1.Value = (100 / SourceList.Items.Count) * item;
+                    int dinamicValue = (100 / SourceList.Items.Count) * item;
+                    if (dinamicValue > 100) { dinamicValue = 100; } else { dinamicValue = (100 / SourceList.Items.Count) * item; }
+                    progressBar1.Value = dinamicValue;
 
                 }
 
+                
                 lblStatus.Text = "All repositories has been cloned.";
                 itemsProgress = $"Cloned: {item - 1} / Total: {SourceList.Items.Count}";
                 lblItems.Text = itemsProgress;
-                progressBar1.Value = 0;
+
+                if (chkCompress.Checked)
+                {
+                    if (chkDelete.Checked)
+                    {
+                        CompressFiles(true);
+                    }
+                    else
+                    {
+                        CompressFiles();
+                    }
+                }
+
+                Text = "gitCloner v" + Application.ProductVersion;
+                lblStatus.Text = "All repositories has been compressed.";
                 SourceList.Enabled = true;
+                progressBar1.Value = 0;
             }
             catch
             {

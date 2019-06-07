@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace gitCloner
@@ -107,17 +103,17 @@ namespace gitCloner
         {
             this.linkLabel1.LinkVisited = true;
 
-            System.Diagnostics.Process.Start("https://github.com/ernest0vm/gitCloner");
+            Process.Start("https://github.com/ernest0vm/gitCloner");
         }
 
         private void PictureBox1_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.linkedin.com/in/ernestovaldez/");
+            Process.Start("https://www.linkedin.com/in/ernestovaldez/");
         }
 
         private void PictureBox2_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("mailto:ernestovm07@gmail.com?subject=Contact%20about%20gitCloner");
+            Process.Start("mailto:ernestovm07@gmail.com?subject=Contact%20about%20gitCloner");
         }
     }
 }
