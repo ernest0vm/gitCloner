@@ -47,6 +47,7 @@
             this.btnSavePath = new System.Windows.Forms.Button();
             this.btnMultiClone = new System.Windows.Forms.Button();
             this.lblItems = new System.Windows.Forms.Label();
+            this.chkMirror = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // chkCompress
@@ -226,12 +227,23 @@
             this.lblItems.Text = "Items";
             this.lblItems.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // chkMirror
+            // 
+            this.chkMirror.AutoSize = true;
+            this.chkMirror.Location = new System.Drawing.Point(474, 230);
+            this.chkMirror.Name = "chkMirror";
+            this.chkMirror.Size = new System.Drawing.Size(93, 17);
+            this.chkMirror.TabIndex = 25;
+            this.chkMirror.Text = "Mirrored clone";
+            this.chkMirror.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(640, 480);
+            this.Controls.Add(this.chkMirror);
             this.Controls.Add(this.lblItems);
             this.Controls.Add(this.btnMultiClone);
             this.Controls.Add(this.btnSavePath);
@@ -280,6 +292,7 @@
         private System.Windows.Forms.Button btnSavePath;
         private System.Windows.Forms.Button btnMultiClone;
         private System.Windows.Forms.Label lblItems;
+        private System.Windows.Forms.CheckBox chkMirror;
     }
 }
 

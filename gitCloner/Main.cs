@@ -36,6 +36,7 @@ namespace gitCloner
             btnMultiClone.Enabled = hasListLoaded;
             chkCompress.Enabled = hasListLoaded;
             chkDelete.Enabled = hasListLoaded;
+            chkMirror.Enabled = hasListLoaded;
             txtPath.Enabled = hasListLoaded;
             txtSavePath.Enabled = hasListLoaded;
             SourceList.Enabled = hasListLoaded;
@@ -186,8 +187,8 @@ namespace gitCloner
 
                 string[] tempString = SourceList.SelectedItem.ToString().Split(Convert.ToChar("/"));
                 string repositoryName = tempString.LastOrDefault().Replace(".git", "");
-                string clonePath = savePathFolder + repositoryName;
-                string command = "/C git clone " + SourceList.SelectedItem.ToString() + " " + clonePath;
+                string clonePath = savePathFolder + repositoryName + (chkMirror.Checked ? $"\\{repositoryName}.git" : "");
+                string command = "/C git clone " + (chkMirror.Checked ? "--mirror " : "") + SourceList.SelectedItem.ToString() + " " + clonePath;
 
                 if (Directory.Exists(clonePath))
                 {
@@ -198,7 +199,7 @@ namespace gitCloner
                 Process process = new Process();
                 ProcessStartInfo startInfo = new ProcessStartInfo();
 #if DEBUG
-                startInfo.WindowStyle = ProcessWindowStyle.Normal;
+                startInfo.WindowStyle = ProcessWindowStyle.Minimized;
 #else
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 #endif
@@ -210,7 +211,39 @@ namespace gitCloner
 
                 while (!process.HasExited)
                 {
-                    //wait infinite time for the end of process.
+                    //wait for cloning.
+                }
+
+                if (chkMirror.Checked)
+                {
+                    Process Moveproc = new Process();
+                    startInfo.Arguments = $"/C rename {clonePath} .git";
+                    Moveproc.StartInfo = startInfo;    
+                    Moveproc.Start();
+                    while (!Moveproc.HasExited)
+                    {
+                        //wait for rename directory.
+                    }
+
+                    Process Configproc = new Process();
+                    startInfo.WorkingDirectory = savePathFolder + repositoryName;
+                    startInfo.Arguments = "/C git config --local --bool core.bare false";
+                    Configproc.StartInfo = startInfo;
+                    Configproc.Start();
+                    while (!Configproc.HasExited)
+                    {
+                        //wait for repository config
+                    }
+
+                    Process Checkoutproc = new Process();
+                    startInfo.WorkingDirectory = savePathFolder + repositoryName;
+                    startInfo.Arguments = "/C git checkout master";
+                    Checkoutproc.StartInfo = startInfo;
+                    Checkoutproc.Start();
+                    while (!Checkoutproc.HasExited)
+                    {
+                        //wait for repository config
+                    }
                 }
 
                 lblStatus.Text = repositoryName + " has been cloned.";
@@ -226,10 +259,11 @@ namespace gitCloner
                     {
                         CompressFiles();
                     }
+
+                    lblStatus.Text = repositoryName + " has been compressed.";
                 }
 
                 Text = "gitCloner v" + Application.ProductVersion;
-                lblStatus.Text = repositoryName + " has been compressed.";
                 SourceList.Enabled = true;
                 progressBar1.Value = 0;
             }
@@ -256,7 +290,7 @@ namespace gitCloner
             ProcessStartInfo startCompressInfo = new ProcessStartInfo
             {
 #if DEBUG
-                WindowStyle = ProcessWindowStyle.Normal,
+                WindowStyle = ProcessWindowStyle.Minimized,
 #else
                 WindowStyle = ProcessWindowStyle.Hidden,
 #endif
@@ -306,8 +340,8 @@ namespace gitCloner
                     SourceList.SelectedIndex = a;
                     string[] tempString = SourceList.SelectedItem.ToString().Split(Convert.ToChar("/"));
                     string repositoryName = tempString.LastOrDefault().Replace(".git", "");
-                    string clonePath = savePathFolder + repositoryName;
-                    string command = "/C git clone " + SourceList.SelectedItem.ToString() + " " + clonePath;
+                    string clonePath = savePathFolder + repositoryName + (chkMirror.Checked ? $"\\{repositoryName}.git" : "");
+                    string command = "/C git clone " + (chkMirror.Checked ? "--mirror " : "") + SourceList.SelectedItem.ToString() + " " + clonePath;
 
                     Text = $"gitCloner v{Application.ProductVersion} [Cloning {repositoryName}]";
 
@@ -336,6 +370,38 @@ namespace gitCloner
                         //wait infinite time for the end of process.
                     }
 
+                    if (chkMirror.Checked)
+                    {
+                        Process Moveproc = new Process();
+                        startInfo.Arguments = $"/C rename {clonePath} .git";
+                        Moveproc.StartInfo = startInfo;
+                        Moveproc.Start();
+                        while (!Moveproc.HasExited)
+                        {
+                            //wait for rename directory.
+                        }
+
+                        Process Configproc = new Process();
+                        startInfo.WorkingDirectory = savePathFolder + repositoryName;
+                        startInfo.Arguments = "/C git config --local --bool core.bare false";
+                        Configproc.StartInfo = startInfo;
+                        Configproc.Start();
+                        while (!Configproc.HasExited)
+                        {
+                            //wait for repository config
+                        }
+
+                        Process Checkoutproc = new Process();
+                        startInfo.WorkingDirectory = savePathFolder + repositoryName;
+                        startInfo.Arguments = "/C git checkout master";
+                        Checkoutproc.StartInfo = startInfo;
+                        Checkoutproc.Start();
+                        while (!Checkoutproc.HasExited)
+                        {
+                            //wait for repository config
+                        }
+                    }
+
                     lblStatus.Text = repositoryName + " has been cloned.";
 
                     itemsProgress = $"Cloned: {item++} / Remain: {(SourceList.Items.Count + 1) - item} / Total: {SourceList.Items.Count}";
@@ -362,10 +428,11 @@ namespace gitCloner
                     {
                         CompressFiles();
                     }
+
+                    lblStatus.Text = "All repositories has been compressed.";
                 }
 
                 Text = "gitCloner v" + Application.ProductVersion;
-                lblStatus.Text = "All repositories has been compressed.";
                 SourceList.Enabled = true;
                 progressBar1.Value = 0;
             }
