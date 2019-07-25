@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace gitCloner
 {
@@ -178,6 +179,7 @@ namespace gitCloner
             try
             {
                 progressBar1.Value = 0;
+                TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
 
                 if (string.IsNullOrEmpty(savePathFolder))
                 {
@@ -248,6 +250,7 @@ namespace gitCloner
 
                 lblStatus.Text = repositoryName + " has been cloned.";
                 progressBar1.Value = 100;
+                TaskbarManager.Instance.SetProgressValue(100, 100);
 
                 if (chkCompress.Checked)
                 {
@@ -266,6 +269,7 @@ namespace gitCloner
                 Text = "gitCloner v" + Application.ProductVersion;
                 SourceList.Enabled = true;
                 progressBar1.Value = 0;
+                TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
             }
             catch
             {
@@ -327,6 +331,7 @@ namespace gitCloner
             try
             {
                 progressBar1.Value = 0;
+                TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
                 SourceList.Enabled = false;
                 if (string.IsNullOrEmpty(savePathFolder))
                 {
@@ -410,7 +415,7 @@ namespace gitCloner
                     int dinamicValue = (100 / SourceList.Items.Count) * item;
                     if (dinamicValue > 100) { dinamicValue = 100; } else { dinamicValue = (100 / SourceList.Items.Count) * item; }
                     progressBar1.Value = dinamicValue;
-
+                    TaskbarManager.Instance.SetProgressValue(dinamicValue, 100);
                 }
 
                 
@@ -435,6 +440,7 @@ namespace gitCloner
                 Text = "gitCloner v" + Application.ProductVersion;
                 SourceList.Enabled = true;
                 progressBar1.Value = 0;
+                TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
             }
             catch
             {
