@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.chkCompress = new System.Windows.Forms.CheckBox();
             this.chkDelete = new System.Windows.Forms.CheckBox();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -264,6 +265,7 @@
             this.Controls.Add(this.chkDelete);
             this.Controls.Add(this.chkCompress);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "gitCloner";
